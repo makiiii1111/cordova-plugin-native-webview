@@ -1,3 +1,21 @@
+/*
+       Licensed to the Apache Software Foundation (ASF) under one
+       or more contributor license agreements.  See the NOTICE file
+       distributed with this work for additional information
+       regarding copyright ownership.  The ASF licenses this file
+       to you under the Apache License, Version 2.0 (the
+       "License"); you may not use this file except in compliance
+       with the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing,
+       software distributed under the License is distributed on an
+       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+       KIND, either express or implied.  See the License for the
+       specific language governing permissions and limitations
+       under the License.
+*/
 package nativewebview;
 
 import android.annotation.SuppressLint;
@@ -47,6 +65,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import topo.alibcs.AlibcS;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -268,13 +288,12 @@ public class NativeWebView extends CordovaPlugin {
                 if (dialog != null) {
                     dialog.dismiss();
                 };
-
+                Resources activityRes = cordova.getActivity().getResources();
                 // Let's create the main dialog
                 dialog = new NativeWebViewDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
                 Context context = cordova.getActivity();
-                int animation_id = context.getResources().getIdentifier("AnimationMyDialog", "style", context.getPackageName());
-                int mini_id = context.getResources().getIdentifier("ProgressBar_Mini", "style", context.getPackageName());
-                int states_id = context.getResources().getIdentifier("progress_bar_states", "drawable", context.getPackageName());
+                int animation_id = activityRes.getIdentifier("AnimationMyDialog", "style", context.getPackageName());
+                int states_id = activityRes.getIdentifier("progress_bar_states", "drawable", context.getPackageName());
                 dialog.getWindow().getAttributes().windowAnimations = animation_id;
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
@@ -308,7 +327,6 @@ public class NativeWebView extends CordovaPlugin {
                 back.setLayoutParams(backLayoutParams);
                 back.setContentDescription("Back Button");
                 back.setId(Integer.valueOf(2));
-                Resources activityRes = cordova.getActivity().getResources();
                 int backResId = activityRes.getIdentifier("arrow_left", "drawable", cordova.getActivity().getPackageName());
                 Drawable backIcon = activityRes.getDrawable(backResId);
                 back.setColorFilter(android.graphics.Color.parseColor(preferences.getString("NativeWebViewIconButtonColor","#000000")));
@@ -367,7 +385,8 @@ public class NativeWebView extends CordovaPlugin {
                 //textview.setText("加载中...");
                 textview.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
                 textview.setTextColor(Color.BLACK);
-                textview.setPadding(this.dpToPixels(5),this.dpToPixels(5),0,0);
+                textview.setGravity(Gravity.CENTER);
+                textview.setPadding(this.dpToPixels(5),this.dpToPixels(2),this.dpToPixels(68),0);
 
                 //add progressbar
                 progressbar = new ProgressBar(context, null, android.R.style.Widget_ProgressBar_Horizontal);
