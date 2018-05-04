@@ -4,7 +4,7 @@
     <js-module name="cordova-plugin-native-webview" src="www/cordova-plugin-native-webview.js">
         <clobbers target="NativeWebView" />
     </js-module>
-	<preference name="WECHATAPPID" />
+	
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="CDVNativeWebView">
@@ -54,7 +54,7 @@
         <source-file src="src/android/NativeWebView.java" target-dir="src/nativewebview" />
         <source-file src="src/android/NativeWebViewDialog.java" target-dir="src/nativewebview" />
         <source-file src="src/android/NativeWebViewChromeClient.java" target-dir="src/nativewebview" />
-        <source-file src="src/android/Util.java" target-dir="src/Util.java" />
+        <source-file src="src/android/Util.java" target-dir="src/nativewebview" />
         <!--  drawable src/android/resources -->
         <resource-file src="src/android/res/drawable-hdpi/share.png" target="res/drawable-hdpi/share.png" />
         <resource-file src="src/android/res/drawable-mdpi/share.png" target="res/drawable-mdpi/share.png" />
